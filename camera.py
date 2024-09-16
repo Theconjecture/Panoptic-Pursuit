@@ -5,7 +5,7 @@ import cv2
 camera = Picamera2()
 
 #Configure the camera
-config = camera.create_still_configuration()
+config = camera.create_video_configuration()
 camera.configure(config)
 
 # Start the camera
@@ -15,6 +15,9 @@ try:
     while True:
         # Capture image from the frame of the camera
         frame = camera.capture_array()
+        
+        # Adjust the color profile
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
         
         #Display the frame using opencv
         cv2.imshow('camera-feed', frame)
